@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class LoginTest {
     @Test
     public void testLogin() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Junaid Gazi\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "D:\\Junaid Gazi\\chromedriver-win64\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("https://fenixshare.anchormydata.com/fenixpyre/s/669ff2910e5caf9f73cd28ea/QA%2520Assignment");
         driver.manage().window().maximize();
@@ -19,9 +19,9 @@ public class LoginTest {
         loginPage.enterEmail("sahil040272@gmail.com");
         loginPage.submitLogin();
         loginPage.sendOtp();
-        loginPage.fetchOTP();
+//        loginPage.fetchOTP();
 
-
+//
         boolean isLoggedIn = loginPage.verifyLogin();
         Assert.assertTrue("Login was not successful.", isLoggedIn);
 

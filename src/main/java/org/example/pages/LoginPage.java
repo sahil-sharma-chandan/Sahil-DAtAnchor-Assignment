@@ -1,9 +1,6 @@
 package org.example.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -29,6 +26,36 @@ public class LoginPage {
 
     public void fetchOTP() {
         // logic to fetch OTP from email
+
+        String mainWindowHandle = driver.getWindowHandle();
+
+        ((JavascriptExecutor) driver).executeScript("window.open()");
+        Set<String> allWindows = driver.getWindowHandles();
+        for (String windowHandle : allWindows) {
+            if (!windowHandle.equals(mainWindowHandle)) {
+                driver.switchTo().window(windowHandle);
+                break;
+            }
+        }
+        driver.get("https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Faccounts.google.com%2Fb%2F0%2FAddMailService&followup=https%3A%2F%2Faccounts.google.com%2Fb%2F0%2FAddMailService&ifkv=AdF4I77rjMc6G9qfH_704Tv9gxTvvCQD95LQ2xSv6Og62LMlAcGS30NrBig9Edqgs5i7gFDJVqK71A&passive=1209600&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S1459821927%3A1722324302343037&ddm=0");
+        WebElement emailInput=driver.findElement(By.xpath("//input[@id=\"identifierId\"]"));
+        emailInput.sendKeys("aknikhil.k@gmail.com");
+        WebElement nextButton = driver.findElement(By.xpath("//*[@id=\"identifierNext\"]"));
+        nextButton.click();
+
+        WebElement passwordInput=driver.findElement(By.xpath("//*[@id=\"password\"]"));
+        passwordInput.sendKeys("Ghazi133@");
+
+        WebElement nextButton1 = driver.findElement(By.xpath("//*[@id=\"passwordNext\"]"));
+        nextButton1.click();
+
+
+        // Get all window handles
+        Set<String> windowHandles = driver.getWindowHandles();
+        ArrayList<String> windowList = new ArrayList<>(windowHandles);
+
+        // Switch to the new tab
+        driver.switchTo().window(windowList.get(1));
 
     }
 
@@ -80,7 +107,7 @@ public class LoginPage {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        WebElement actionTab = driver.findElement(By.xpath("//*[@id=\"radix-:r18:\"]"));
+        WebElement actionTab = driver.findElement(By.xpath("//*[@id=\"radix-:r19:\"]"));
         actionTab.click();
 
     }
@@ -102,8 +129,8 @@ public class LoginPage {
         driver.switchTo().window(windowList.get(1));
 
         // Verify the URL or title of the new tab
-        String expectedUrl = "https://fenixshare.anchormydata.com/fenixpyre/v/Document.docx"; 
-                                                                                              
+        String expectedUrl = "https://fenixshare.anchormydata.com/fenixpyre/v/Document.docx";
+
         String actualUrl = driver.getCurrentUrl();
         if (expectedUrl.equals(actualUrl)) {
             System.out.println("New tab opened successfully with the correct URL.");
@@ -125,7 +152,7 @@ public class LoginPage {
 
         // Verify the URL or title of the new tab
         String expectedPreUrl = "https://fenixshare.anchormydata.com/fenixpyre/v/Document.docx";
-                                                                                                 
+
         String actualPreUrl = driver.getCurrentUrl();
         if (expectedPreUrl.equals(actualPreUrl)) {
             System.out.println("New tab opened successfully with the correct preview URL.");
