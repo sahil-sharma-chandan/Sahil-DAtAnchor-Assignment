@@ -23,12 +23,11 @@ public class LoginPage {
     }
 
     public void enterEmail(String email) {
-        WebElement emailField = wait
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='email']")));
+        WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='email']")));
         emailField.sendKeys(email);
     }
 
-    public void fetchOTP( String email) {
+    public void fetchOTP(String email) {
         // logic to fetch OTP from email
 
         // Get the main window handle
@@ -55,7 +54,6 @@ public class LoginPage {
         driver.get("https://outlook.live.com/mail/0/?nlp=1&cobrandid=ab0455a0-8d03-46b9-b18b-df2f57b9e44c&deeplink=owa%2F");
 
         // Create WebDriverWait instance
-//        WebDriverWait wait = new WebDriverWait(driver, 30);
 
         try {
             Thread.sleep(5000);
@@ -167,26 +165,18 @@ public class LoginPage {
             }
 
 
-
-
         }
-
-
-
-
 
 
     }
 
     public void submitLogin() {
-        WebElement submitButton = wait
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='email-btn']")));
+        WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='email-btn']")));
         submitButton.click();
     }
 
     public void sendOtp() {
-        WebElement submitButton = wait
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class='auth0-label-submit']")));
+        WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class='auth0-label-submit']")));
         submitButton.click();
     }
 
@@ -197,21 +187,10 @@ public class LoginPage {
             throw new RuntimeException(e);
         }
 
-        // Click the submit button
-        WebElement submitButton = wait
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class='auth0-label-submit']")));
-        submitButton.click();
-
-        try {
-            Thread.sleep(5000); // Consider replacing this with a more efficient wait
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
         // Wait for a known element on the logged-in page
         try {
-            WebElement userProfileIcon = wait
-                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("user-info-email")));
+            WebElement userProfileIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user-info-email")));
             System.out.println("User Logedin Successfully...");
             return userProfileIcon.isDisplayed();
         } catch (TimeoutException e) {
@@ -233,8 +212,7 @@ public class LoginPage {
 
     public void openInNewTab() {
 
-        WebElement actionTab = driver
-                .findElement(By.xpath("//*[@id=\"fp-sharedlink-table-body-1-1_actions-open\"]/div/span"));
+        WebElement actionTab = driver.findElement(By.xpath("//*[@id=\"fp-sharedlink-table-body-1-1_actions-open\"]/div/span"));
         actionTab.click();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -262,8 +240,7 @@ public class LoginPage {
 
         this.clickActionTab();
 
-        WebElement previewTab = driver
-                .findElement(By.xpath("//*[@id=\"fp-sharedlink-table-body-1-1_actions-preview\"]/div/span"));
+        WebElement previewTab = driver.findElement(By.xpath("//*[@id=\"fp-sharedlink-table-body-1-1_actions-preview\"]/div/span"));
         previewTab.click();
 
         // Switch to the new tab
@@ -285,15 +262,13 @@ public class LoginPage {
     }
 
     public void searchMethod() {
-        WebElement submitButton = wait
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id=\"menu-/home\"]")));
+        WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id=\"menu-/home\"]")));
         submitButton.click();
 
     }
 
     public void searchFile(String searchfield) {
-        WebElement searchField = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"fp-home-recentfiles-search-bar\"]")));
+        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"fp-home-recentfiles-search-bar\"]")));
         searchField.sendKeys(searchfield);
 
         try {
@@ -304,8 +279,7 @@ public class LoginPage {
 
         // Verify if the file is present in the search results
         try {
-            WebElement fileElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//*[@id=\"fp-home-recentfiles-recenttable-body-0-0_name\"]/div/button/span[2]")));
+            WebElement fileElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"fp-home-recentfiles-recenttable-body-0-0_name\"]/div/button/span[2]")));
             System.out.println("File is present.");
         } catch (org.openqa.selenium.NoSuchElementException e) {
             System.out.println("File is not present.");
