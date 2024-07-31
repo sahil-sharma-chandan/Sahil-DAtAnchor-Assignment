@@ -1,8 +1,8 @@
-package org.example.tests;
+package avi.fenixpure.tests;
 
 
 import junit.framework.Assert;
-import org.example.pages.LoginPage;
+import avi.fenixpure.pages.LoginPage;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

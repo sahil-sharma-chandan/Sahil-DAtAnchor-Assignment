@@ -1,34 +1,55 @@
-# Fenix Share Automation Test
+# Project Title
 
-# Introduction
+## Description
 
-This repository contains a set of automation tests for the Fenix Share application. The tests are written in Java using Selenium WebDriver and JUnit.
+This project is a Java-based Selenium WebDriver automation project designed to test the login functionality of a web application. It includes tests for logging in, OTP verification, and searching for a document.
 
+## Prerequisites
 
-# Prerequisites
-.Java 8 or higher installed on your system
-.Chrome browser installed on your system
-.ChromeDriver executable downloaded and added to your system's PATH
-.Maven installed on your system (optional)
+Before running the project, ensure you have the following installed:
 
-# Test Scenarios
-The following test scenarios are included in this repository:
+1. **Java Development Kit (JDK)**
+    - Ensure you have JDK 8 or higher installed.
+    - You can download it from [Oracle's JDK Downloads](https://www.oracle.com/java/technologies/javase-downloads.html) or [OpenJDK](https://openjdk.java.net/).
 
-Login Test: Verifies that a user can successfully log in to the application
-Search Test: Verifies that a user can search for a file in the application
-Open in New Tab Test: Verifies that a user can open a file in a new tab
+2. **Apache Maven** (Optional)
+    - If your project uses Maven for dependency management, make sure Maven is installed.
+    - You can download it from [Apache Maven](https://maven.apache.org/download.cgi).
 
-# Running the Tests
-To run the tests, follow these steps:
+3. **Selenium WebDriver**
+    - The project uses Selenium WebDriver to interact with the web browser.
 
-Clone this repository to your local machine using git clone
-Navigate to the project directory using cd
-If you are using Maven, run the command mvn clean test to build and run the tests
-If you are not using Maven, compile the Java code using javac and run the tests using java
-The tests will launch the Chrome browser and execute the test scenarios
+4. **Web Browser and Driver**
+    - **Google Chrome** browser installed.
+    - **ChromeDriver** binary that matches your version of Google Chrome.
 
-# Troubleshooting
+## Setup
 
-Make sure that the ChromeDriver executable is in your system's PATH
-Make sure that the Chrome browser is installed and configured correctly
-If you encounter any issues, check the test logs for errors and exceptions
+1. **Clone the Repository**
+
+```sh
+  git clone https://github.com/sahil-sharma-chandan/Sahil-DAtAnchor-Assignment.git
+```
+### Install Dependencies
+
+If you are using Maven for dependency management, ensure that the dependencies are specified in the `pom.xml` file. Install them by running:
+
+```sh
+mvn install
+```
+
+### Install ChromeDriver
+
+1. **Download ChromeDriver:**
+
+    Obtain ChromeDriver from the ChromeDriver Downloads.
+    Choose the version that matches your installed version of Google Chrome.
+    Place ChromeDriver:
+
+2. Extract the downloaded file and place chromedriver.exe in a directory of your choice (e.g., D:\Junaid Gazi\chromedriver-win64\).
+    Update ChromeDriver Path in Code:
+
+3. Open the LoginTest.java file.
+    Locate the line that sets the path for ChromeDriver and update it to point to the location of chromedriver.exe:
+
+## Now its ready to run

@@ -1,4 +1,4 @@
-package org.example.pages;
+package avi.fenixpure.pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -283,6 +283,8 @@ public class LoginPage {
             System.out.println("File is present.");
         } catch (org.openqa.selenium.NoSuchElementException e) {
             System.out.println("File is not present.");
+        }finally {
+            driver.quit();
         }
     }
 
