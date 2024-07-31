@@ -16,12 +16,12 @@ public class LoginTest {
         driver.manage().window().maximize();
 
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.enterEmail("sahil040272@gmail.com");
+        loginPage.enterEmail("sahil.sharma.chandan@outlook.com");
         loginPage.submitLogin();
         loginPage.sendOtp();
-//        loginPage.fetchOTP();
+        loginPage.fetchOTP("sahil.sharma.chandan@outlook.com");
 
-//
+
         boolean isLoggedIn = loginPage.verifyLogin();
         Assert.assertTrue("Login was not successful.", isLoggedIn);
 
