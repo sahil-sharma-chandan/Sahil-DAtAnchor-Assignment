@@ -1,5 +1,6 @@
 package avi.fenixpure.steps;
 
+import avi.fenixpure.component.Constant;
 import avi.fenixpure.pages.LoginPage;
 import io.cucumber.java.After;
 import io.cucumber.java.en.*;
@@ -16,16 +17,12 @@ public class LoginSteps {
     private WebDriver driver;
     private LoginPage loginPage;
     private WebDriverWait wait;
-    private final String chromeDriverPath = "D:\\Junaid Gazi\\chromedriver-win64\\chromedriver.exe";
-    private final String baseUrl = "https://fenixshare.anchormydata.com/fenixpyre/s/669ff2910e5caf9f73cd28ea/QA%2520Assignment";
-    private final String email = "sahil.sharma.chandan@outlook.com";
-    private final String password = "Ghazi133@";
 
     @Given("the user navigates to the login page")
     public void the_user_navigates_to_the_login_page() {
-        System.setProperty("webdriver.chrome.driver", chromeDriverPath);
+        System.setProperty("webdriver.chrome.driver", Constant.chromeDriverPath);
         driver = new ChromeDriver();
-        driver.get(baseUrl);
+        driver.get(Constant.baseUrl);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         loginPage = new LoginPage(driver);
@@ -40,7 +37,7 @@ public class LoginSteps {
 
     @When("the user fetches the OTP and submits it")
     public void the_user_fetches_the_otp_and_submits_it() {
-        loginPage.nevigateToMail(email, password);
+        loginPage.nevigateToMail(Constant.email, Constant.password);
         loginPage.fetchOTP();
     }
 
