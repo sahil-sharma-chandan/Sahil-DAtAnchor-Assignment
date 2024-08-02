@@ -56,15 +56,15 @@ public class LoginSteps {
     public void the_user_searches_for(String filename) {
         loginPage.clickActionTab();
         loginPage.openInNewTab();
-//        loginPage.openInNewTabToPreview();
+        loginPage.openInNewTabToPreview();
         loginPage.searchMethod();
         loginPage.searchFile(filename);
     }
 
-//    @After
-//    public void tearDown() {
-//        if (driver != null) {
-//            driver.quit();
-//        }
-//    }
+    @After
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
 }
