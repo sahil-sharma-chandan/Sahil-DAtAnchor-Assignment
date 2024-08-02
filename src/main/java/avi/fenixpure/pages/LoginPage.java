@@ -26,7 +26,7 @@ public class LoginPage {
     }
 
     public void submitLogin() {
-        WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='email-btn']")));
+        WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("email-btn")));
         submitButton.click();
     }
 
@@ -70,65 +70,35 @@ public class LoginPage {
     }
 
     public void fetchOTP() {
-        // Click the element to load emails
-
-        WebElement folderPane = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"folderPaneDroppableContainer\"]/div/div[1]/div[2]/div/div[1]/div/span[1]")));
-        folderPane.click();
-
         String emailSubject = "Your Anchor account One Time Passcode is"; // Adjust as needed
-
         List<WebElement> emails = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//span[contains(text(), '" + emailSubject + "')]")));
-
         if (!emails.isEmpty()) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             emails.get(0).click();
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
             // Wait for the email content to load
             WebElement emailBody = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@role='main']")));
             try {
-                Thread.sleep(2000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             // Extract the email body text
             String emailText = emailBody.getText();
+            System.out.println(emailText);
             try {
-                Thread.sleep(2000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
 
             // Use regex to find the OTP
             Pattern otpPattern = Pattern.compile("\\b\\d{6}\\b"); // Assuming OTP is a 6-digit number
-
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             Matcher matcher = otpPattern.matcher(emailText);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
 
             if (matcher.find()) {
                 String otp = matcher.group();
                 System.out.println("OTP: " + otp);
-
-                // Switch back to the original tab and enter the OTP
                 driver.close();
-
+                // Switch back to the original tab and enter the OTP
                 driver.switchTo().window(driver.getWindowHandles().stream().findFirst().orElseThrow(() -> new RuntimeException("Original window handle not found")));
                 WebElement otpInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"1-vcode\"]"))); // Adjust as needed
                 otpInput.sendKeys(otp);
@@ -151,27 +121,67 @@ public class LoginPage {
 
     public void clickActionTab() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        WebElement actionTab = driver.findElement(By.xpath("//*[@id=\"radix-:r18:\"]"));
+        WebElement actionTab = driver.findElement(By.id("radix-:r19:"));
         actionTab.click();
     }
 
     public void openInNewTab() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
         try {
-            WebElement actionTab = driver.findElement(By.id("fp-sharedlink-table-body-1-1_actions-open"));
+            // Click on the action tab to open a new tab
+            WebElement actionTab = wait.until(ExpectedConditions.elementToBeClickable(By.id("fp-sharedlink-table-body-1-1_actions-open")));
             actionTab.click();
 
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            // Wait until a new tab/window is opened
             wait.until(ExpectedConditions.numberOfWindowsToBe(2));
 
-            // Get all window handles
+            // Switch to the new tab
             Set<String> windowHandles = driver.getWindowHandles();
             ArrayList<String> windowList = new ArrayList<>(windowHandles);
+            driver.switchTo().window(windowList.get(1));
 
-            // Switch to the new tab
+            // Define the expected URL
+            String expectedUrl = "https://fenixshare.anchormydata.com/fenixpyre/v/Document.docx";
+
+            // Wait until the URL of the new tab matches the expected URL
+            wait.until(ExpectedConditions.urlToBe(expectedUrl));
+
+            // Confirm the URL
+            String actualUrl = driver.getCurrentUrl();
+            if (expectedUrl.equals(actualUrl)) {
+                System.out.println("New tab opened successfully with the correct URL.");
+            } else {
+                System.out.println("New tab did not open with the correct URL. Actual URL: " + actualUrl);
+            }
+            driver.close();
+
+            // Switch back to the original tab
+            driver.switchTo().window(windowList.get(0));
+
+        } catch (Exception e) {
+            System.err.println("An error occurred: " + e.getMessage());
+        }
+    }
+
+    public void openInNewTabToPreview() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            this.clickActionTab();
+            // Click on the action tab to open the new tab
+            WebElement actionPreTab = wait.until(ExpectedConditions.elementToBeClickable(By.id("fp-sharedlink-table-body-1-1_actions-preview")));
+            actionPreTab.click();
+
+            // Wait until a new window/tab is opened
+            wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+
+            // Get all window handles and switch to the new tab
+            Set<String> windowHandles = driver.getWindowHandles();
+            ArrayList<String> windowList = new ArrayList<>(windowHandles);
             driver.switchTo().window(windowList.get(1));
 
             // Wait until the URL matches the expected URL
@@ -181,66 +191,36 @@ public class LoginPage {
             // Confirm the URL
             String actualUrl = driver.getCurrentUrl();
             if (expectedUrl.equals(actualUrl)) {
-                System.out.println("New tab Edit opened successfully with the correct URL.");
+                System.out.println("New tab preview opened successfully with the correct URL.");
             } else {
-                System.out.println("New tab Edit did not open with the correct URL. Actual URL: " + actualUrl);
+                System.out.println("New tab preview did not open with the correct URL. Actual URL: " + actualUrl);
             }
+            driver.close();
+
+            // Switch back to the original tab
             driver.switchTo().window(windowList.get(0));
 
         } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
-        }
-    }
-
-    public void openInNewTabToPreview() {
-        try {
-            this.clickActionTab();
-            WebElement actionTab = driver.findElement(By.id("fp-sharedlink-table-body-1-1_actions-preview"));
-            actionTab.click();
-
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.numberOfWindowsToBe(2));
-
-            // Get all window handles
-            Set<String> windowHandles = driver.getWindowHandles();
-            ArrayList<String> windowList = new ArrayList<>(windowHandles);
-
-            // Switch to the new tab
-            driver.switchTo().window(windowList.get(2));
-
-            // Wait until the URL matches the expected URL
-            String expectedUrl = "https://fenixshare.anchormydata.com/fenixpyre/v/Document.docx";
-            wait.until(ExpectedConditions.urlToBe(expectedUrl));
-
-            // Confirm the URL
-            String actualUrl = driver.getCurrentUrl();
-            if (expectedUrl.equals(actualUrl)) {
-                System.out.println("New tab PreView opened successfully with the correct URL.");
-            } else {
-                System.out.println("New tab PreView did not open with the correct URL. Actual URL: " + actualUrl);
-            }
-            driver.switchTo().window(windowList.get(0));
-        } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
+            System.err.println("An error occurred: " + e.getMessage());
         }
     }
 
     public void searchMethod() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='menu-/home']")));
+        WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("menu-/home")));
         searchButton.click();
     }
 
     public void searchFile(String searchField) {
-        WebElement searchInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"fp-home-recentfiles-search-bar\"]")));
+        WebElement searchInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("fp-home-recentfiles-search-bar")));
         searchInput.sendKeys(searchField);
         // Verify if the file is present in the search results
         try {
-            WebElement fileElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"fp-home-recentfiles-recenttable-body-0-0_name\"]/div/button/span[2]")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("fp-home-recentfiles-recenttable-body-0-0_name")));
             System.out.println("File is present.");
         } catch (org.openqa.selenium.NoSuchElementException e) {
             System.out.println("File is not present.");
