@@ -1,4 +1,5 @@
 package avi.fenixpure.pages;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -67,7 +68,8 @@ public class LoginPage {
         WebElement acceptButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("acceptButton")));
         acceptButton.click(); // Click the accept button
     }
-    public void fetchOTP(){
+
+    public void fetchOTP() {
         // Click the element to load emails
 
         WebElement folderPane = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"folderPaneDroppableContainer\"]/div/div[1]/div[2]/div/div[1]/div/span[1]")));
@@ -159,7 +161,6 @@ public class LoginPage {
 
     public void openInNewTab() {
         try {
-//            this.clickActionTab();
             WebElement actionTab = driver.findElement(By.id("fp-sharedlink-table-body-1-1_actions-open"));
             actionTab.click();
 
@@ -191,7 +192,7 @@ public class LoginPage {
         }
     }
 
-    public void openInNewTabToPreview(){
+    public void openInNewTabToPreview() {
         try {
             this.clickActionTab();
             WebElement actionTab = driver.findElement(By.id("fp-sharedlink-table-body-1-1_actions-preview"));
@@ -223,7 +224,6 @@ public class LoginPage {
             System.out.println("An error occurred: " + e.getMessage());
         }
     }
-
 
     public void searchMethod() {
         try {
