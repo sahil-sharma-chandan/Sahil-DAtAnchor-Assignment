@@ -4,6 +4,10 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +40,6 @@ public class LoginPage {
     }
 
     public void nevigateToMail(String email, String password) {
-        //logic to fetch OTP from email
         // Get the main window handle
         String mainWindowHandle = driver.getWindowHandle();
 
@@ -45,10 +48,7 @@ public class LoginPage {
 
         // Wait for the new tab to be available and switch to it
         wait.until(ExpectedConditions.numberOfWindowsToBe(2));
-        String newTabHandle = driver.getWindowHandles().stream()
-                .filter(handle -> !handle.equals(mainWindowHandle))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("New tab handle not found"));
+        String newTabHandle = driver.getWindowHandles().stream().filter(handle -> !handle.equals(mainWindowHandle)).findFirst().orElseThrow(() -> new RuntimeException("New tab handle not found"));
 
         driver.switchTo().window(newTabHandle);
 
@@ -226,9 +226,17 @@ public class LoginPage {
             System.out.println("File is not present.");
         }
     }
+
+    public void captureScreenshot(String methodName) {
+        try {
+            TakesScreenshot screenshotTaker = (TakesScreenshot) driver;
+            File screenshot = screenshotTaker.getScreenshotAs(OutputType.FILE);
+            String screenshotPath = "screenshots/" + methodName + "_" + System.currentTimeMillis() + ".png";
+            Files.createDirectories(Paths.get("screenshots"));
+            Files.copy(screenshot.toPath(), Paths.get(screenshotPath));
+            System.out.println("Screenshot taken and saved to " + screenshotPath);
+        } catch (IOException e) {
+            System.err.println("Failed to capture screenshot: " + e.getMessage());
+        }
+    }
 }
-
-
-
-
-
