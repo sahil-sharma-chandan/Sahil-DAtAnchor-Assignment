@@ -21,8 +21,8 @@ public class LoginSteps {
     private LoginPage loginPage;
     private WebDriverWait wait;
 
-    @Given("the user navigates to the login page")
-    public void the_user_navigates_to_the_login_page() {
+    @Given("user navigates to the login page")
+    public void user_navigates_to_the_login_page() {
         try {
             logger.info("Navigating to login page...");
             System.setProperty("webdriver.chrome.driver", Constant.chromeDriverPath);
@@ -40,8 +40,8 @@ public class LoginSteps {
         }
     }
 
-    @When("the user logs in with email {string}")
-    public void the_user_logs_in_with_email_and_password(String email) {
+    @When("user logs in with email {string}")
+    public void user_logs_in_with_email_and_password(String email) {
         try {
             logger.info("Logging in with email: " + email);
             loginPage.enterEmail(email);
@@ -55,8 +55,8 @@ public class LoginSteps {
         }
     }
 
-    @When("the user fetches the OTP and submits it")
-    public void the_user_fetches_the_otp_and_submits_it() {
+    @When("user fetches the OTP and submits it")
+    public void user_fetches_the_otp_and_submits_it() {
         try {
             logger.info("Fetching OTP...");
             loginPage.nevigateToMail(Constant.email, Constant.password);
@@ -69,8 +69,8 @@ public class LoginSteps {
         }
     }
 
-    @Then("the user should be logged in successfully")
-    public void the_user_should_be_logged_in_successfully() {
+    @Then("user should be logged in successfully")
+    public void user_should_be_logged_in_successfully() {
         try {
             logger.info("Verifying login...");
             boolean isLoggedIn = loginPage.verifyLogin();
@@ -84,21 +84,25 @@ public class LoginSteps {
         }
     }
 
-    @And("the user searches for {string}")
-    public void the_user_searches_for(String filename) {
+    @And("user searches for {string}")
+    public void user_searches_for(String filename) {
         try {
             logger.info("Searching for file: " + filename);
             loginPage.clickActionTab();
             loginPage.openInNewTab();
             loginPage.openInNewTabToPreview();
             loginPage.searchMethod();
-            loginPage.searchFile(filename);
         } catch (Exception e) {
             loginPage.captureScreenshot("searchFailure");
             logger.error("Search failed: " + e.getMessage());
             ExtentReportManager.getExtentReports().createTest("Search Test").fail(e.getMessage());
             throw e;
         }
+    }
+
+    @Then("user should see the file {string} in the search results")
+    public void user_should_see_the_file_in_the_search_results(String filename) {
+        loginPage.searchFile(filename);
     }
 
     @After

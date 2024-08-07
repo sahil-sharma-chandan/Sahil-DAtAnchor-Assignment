@@ -1,8 +1,9 @@
 Feature: Login and Search File
 
   Scenario: Successful login and search for a document
-    Given the user navigates to the login page
-    When the user logs in with email "Replace with your Email"
-    And the user fetches the OTP and submits it
-    Then the user should be logged in successfully
-    And the user searches for "Document.docx"
+    Given user navigates to the login page
+    When user logs in with email "Replace with your Email"
+    And user fetches the OTP and submits it
+    Then user should be logged in successfully
+    And user searches for "Document.docx"
+    Then user should see the file "Document.docx" in the search results
