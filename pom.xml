@@ -26,8 +26,6 @@
             <artifactId>cucumber-java</artifactId>
             <version>7.18.1</version>
         </dependency>
-
-
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
@@ -38,13 +36,10 @@
             <artifactId>cucumber-junit</artifactId>
             <version>7.12.1</version> <!-- or the latest version -->
         </dependency>
-
-
         <dependency>
             <groupId>org.apache.cassandra</groupId>
             <artifactId>cassandra-all</artifactId>
             <version>0.8.1</version>
-
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -55,7 +50,6 @@
                     <artifactId>log4j</artifactId>
                 </exclusion>
             </exclusions>
-
         </dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>
@@ -86,14 +80,12 @@
             <version>13.0</version>
             <scope>compile</scope>
         </dependency>
-
         <!-- ExtentReports -->
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
             <version>5.0.9</version>
         </dependency>
-
         <!-- Log4j -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -109,6 +101,12 @@
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
             <version>5.0.9</version> <!-- Check for the latest version -->
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.iharder/base64 -->
+        <dependency>
+            <groupId>net.iharder</groupId>
+            <artifactId>base64</artifactId>
+            <version>2.3.8</version>
         </dependency>
     </dependencies>
 

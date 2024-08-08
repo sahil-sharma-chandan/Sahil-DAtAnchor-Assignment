@@ -1,6 +1,7 @@
 package avi.fenixpure.steps;
 
 import avi.fenixpure.component.Constant;
+import avi.fenixpure.component.CredentialManager;
 import avi.fenixpure.pages.LoginPage;
 import avi.fenixpure.reporting.ExtentReportManager;
 import io.cucumber.java.After;
@@ -13,6 +14,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.junit.Assert;
 
 import java.time.Duration;
+
+import static avi.fenixpure.component.Constant.email;
 
 public class LoginSteps {
 
@@ -40,8 +43,8 @@ public class LoginSteps {
         }
     }
 
-    @When("user logs in with email {string}")
-    public void user_logs_in_with_email_and_password(String email) {
+    @When("user logs in with email")
+    public void user_logs_in_with_email_and_password() {
         try {
             logger.info("Logging in with email: " + email);
             loginPage.enterEmail(email);
@@ -59,7 +62,7 @@ public class LoginSteps {
     public void user_fetches_the_otp_and_submits_it() {
         try {
             logger.info("Fetching OTP...");
-            loginPage.nevigateToMail(Constant.email, Constant.password);
+            loginPage.nevigateToMail(email, CredentialManager.decodedPassword);
             loginPage.fetchOTP();
         } catch (Exception e) {
             loginPage.captureScreenshot("Fetching OTP... Failed");

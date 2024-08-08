@@ -58,7 +58,12 @@ Before running the project, ensure you have the following installed:
     - Update the following fields:
       - chromeDriverPath: Set this to the path of the ChromeDriver binary you downloaded.
       - email: Update this with your Outlook email address.
-      - password: Update this with the password for your Outlook email account.
+      - *password:*
+        1. First go Base64 encoding website  [base64encode.org](https://www.base64encode.org/).
+        2. Enter your plain-text password and click "Encode."
+        3. Copy the Base64 encoded password.
+        4. Open the `Constant` class in project.
+        5. Replace the `password` variable with the encoded password.
 4. Running the Application
     - Open IntelliJ IDEA and navigate to Sahil-DAtAnchor-Assignment/src/main/resources/features/login.feature.
     - Right-click on login.feature and select "Run".
@@ -70,6 +75,9 @@ Application should now be running successfully. If you encounter any issues, mak
 
 1. Component: src/main/java/avi/fenixpure/component/Constant
    - _Constant Class:_ This class centralizes configuration values for Application, improving maintainability and readability. It is important to avoid storing sensitive information directly in this class.
+   - _CredentialManager:_
+     - *Security:* Be cautious when handling credentials in code. Even though Base64 encoding is not secure, ensure that sensitive data such as passwords is managed securely and not exposed unnecessarily.
+     - *Hardcoded Values:* Avoid hardcoding sensitive data like passwords directly in the code. Consider using environment variables or secure storage solutions for production applications.
 2. Pages: src/main/java/avi/fenixpure/pages
    - _LoginPage Class:_ Represents the login page of the application and automates interactions like logging in, handling OTPs, navigating tabs, and performing searches. It uses the Page Object Model to encapsulate these actions, promoting code reuse and ease of maintenance.
 3. Reporting: src/main/java/avi/fenixpure/reporting
